@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Processing</title>
+    <style>
+        body {
+            background-image: url("https://wallpaperaccess.com/full/1711834.gif");
+            background-size: cover;
+            color: #fff;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        @keyframes animateText {
+            from {
+                transform: translateY(-50px) opacity: 0;
+            }
+            to {
+                transform: translateY(0px) opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 43px;
+            color: #00ff88; /* Light green color */
+            text-align: center;
+            font-weight: bold;
+            animation: animateText 1s ease-in-out both;
+            margin-bottom: 20px;
+        }
+
+        .upload-container {
+            margin: 20px auto;
+            width: 500px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #001b47;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            color: #001b47;
+            align-items: center;
+        }
+
+        .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .file-upload-label img {
+            width: 70px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .upload-input {
+            display: none;
+        }
+
+        .output-format-select {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .upload-btn {
+            padding: 15px 30px;
+            border: 2px solid #007bff;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .upload-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .loading-indicator {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .loading-text {
+            font-size: 16px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Document Extracter</h1>
+
+    <div class="upload-container">
+        <p>Upload your document or image for processing:</p>
+
+        <form class="upload-form" action="/process_document" method="post" enctype="multipart/form-data">
+            <label for="fileInput" class="file-upload-label">
+                <img src="https://cdn-icons-png.flaticon.com/128/4725/4725573.png" alt="Upload Icon">
+                Click to Upload
+            </label>
+            <input class="upload-input" type="file" id="fileInput" name="file" accept=".pdf, .docx, .png, .jpg, .jpeg, .gif">
+
+            <label for="outputFormat" class="output-format-select">Select Output Format:</label>
+            <select id="outputFormat" name="format_choice">
+                <option value="txt">Text (txt)</option>
+                <option value="docx">Word (docx)</option>
+                <option value="pdf">PDF (pdf)</option>
+            </select>
+
+            <button class="upload-btn" type="submit" id="processBtn">Process</button>
+        </form>
+
+        <div class="loading-indicator" id="loadingIndicator">
+            <span class="loading-text">Processing...</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('.upload-form');
+            const processBtn = document.getElementById('processBtn');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            form.addEventListener('submit', function () {
+                processBtn.disabled = true;
+                loadingIndicator.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
